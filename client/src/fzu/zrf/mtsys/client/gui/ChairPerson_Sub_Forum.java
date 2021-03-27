@@ -28,6 +28,10 @@ import javafx.stage.Stage;
 
 public class ChairPerson_Sub_Forum extends Application {
 
+	public static void main(String[] args) {
+        launch(ChairPerson_Sub_Forum.class, args);
+    }
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
@@ -43,7 +47,6 @@ public class ChairPerson_Sub_Forum extends Application {
 		border.setRight(addFlowPane());
 		Scene scene = new Scene(border, 1200, 800);
 		primaryStage.setScene(scene);
-		primaryStage.setTitle("ChairmanClient");
 		primaryStage.show();
 	}
 	
