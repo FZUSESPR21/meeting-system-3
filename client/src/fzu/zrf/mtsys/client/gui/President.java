@@ -1,5 +1,6 @@
 package fzu.zrf.mtsys.client.gui;
 
+import fzu.zrf.mtsys.client.conf.Configuration;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -34,7 +35,7 @@ public class President extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		primaryStage.setTitle("欢迎你，分主席！");
+		primaryStage.setTitle(Configuration.BUNDLE.getString("Welcome.hint"));
 
 		BorderPane border = new BorderPane();
 		HBox hbox = addHBox();
@@ -56,16 +57,16 @@ public class President extends Application{
 	   hbox.setSpacing(10); //节点之间的间距
 	   hbox.setStyle("-fx-background-color: #336699;"); //背景色
 
-	   Button buttonCurrent = new Button("会议详情");
+	   Button buttonCurrent = new Button(Configuration.BUNDLE.getString("DetailMeeting.hint"));
 	   buttonCurrent.setPrefSize(100, 20);
 
-	   Button buttonProjected = new Button("参会人数");
+	   Button buttonProjected = new Button(Configuration.BUNDLE.getString("MeetingNumber.hint"));
+	   buttonProjected.setPrefSize(100, 20);	   
+	   
+	   Button put = new Button(Configuration.BUNDLE.getString("PutMessage.hint"));
 	   buttonProjected.setPrefSize(100, 20);
 	   
-	   Button put = new Button("发布通知");
-	   buttonProjected.setPrefSize(100, 20);
-	   
-	   Button reflash = new Button("刷新页面");
+	   Button reflash = new Button(Configuration.BUNDLE.getString("refresh.hint"));
 	   buttonProjected.setPrefSize(100, 20);
 	   hbox.getChildren().addAll(buttonCurrent, buttonProjected,put,reflash);
 
@@ -81,8 +82,8 @@ public class President extends Application{
 		   title.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 		   vbox.getChildren().add(title);
 
-		   Hyperlink options[] = new Hyperlink[] {
-		       new Hyperlink("个人信息"),
+		  /* Hyperlink options[] = new Hyperlink[] {
+		       new Hyperlink("register.subforum.hint"),
 		       new Hyperlink("登出"),
 		       new Hyperlink("刷新"),
 		       new Hyperlink("相关")};
@@ -90,7 +91,7 @@ public class President extends Application{
 		   for (int i=0; i<4; i++){
 		       VBox.setMargin(options[i], new Insets(0, 0, 0, 8)); //为每个节点设置外边距
 		       vbox.getChildren().add(options[i]);
-		   }
+		   }*/
 
 		   return vbox;
 		}
