@@ -62,9 +62,12 @@ public class President extends Application{
 	   Button buttonProjected = new Button("参会人数");
 	   buttonProjected.setPrefSize(100, 20);
 	   
-	   Button reflash = new Button("Reflash");
+	   Button put = new Button("发布通知");
 	   buttonProjected.setPrefSize(100, 20);
-	   hbox.getChildren().addAll(buttonCurrent, buttonProjected,reflash);
+	   
+	   Button reflash = new Button("刷新页面");
+	   buttonProjected.setPrefSize(100, 20);
+	   hbox.getChildren().addAll(buttonCurrent, buttonProjected,put,reflash);
 
 	   return hbox;
 	}
@@ -79,10 +82,10 @@ public class President extends Application{
 		   vbox.getChildren().add(title);
 
 		   Hyperlink options[] = new Hyperlink[] {
-		       new Hyperlink("Sales"),
-		       new Hyperlink("Marketing"),
-		       new Hyperlink("Distribution"),
-		       new Hyperlink("Costs")};
+		       new Hyperlink("个人信息"),
+		       new Hyperlink("登出"),
+		       new Hyperlink("刷新"),
+		       new Hyperlink("相关")};
 
 		   for (int i=0; i<4; i++){
 		       VBox.setMargin(options[i], new Insets(0, 0, 0, 8)); //为每个节点设置外边距
@@ -121,40 +124,47 @@ public class President extends Application{
 		   grid.setHgap(10);
 		   grid.setVgap(10);
 		   grid.setPadding(new Insets(0, 10, 0, 10));
+		   
+		   for(int t=0;t<60;t+=9) {
+			   Text category = new Text("会议标题：改革开放");
+			   category.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+			   grid.add(category, 1, 0+t);
+			// 将category节点放在第1行,第2列
+			   // 将chartTitle节点放在第1行,第3列
+			   Text chartTitle = new Text("主席：邓小平...");
+			   chartTitle.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+			   grid.add(chartTitle, 2, 0+t);
 
-		   // 将category节点放在第1行,第2列
-		   Text category = new Text("Sales:");
-		   category.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-		   grid.add(category, 1, 0);
+			   // 将chartSubtitle节点放在第2行,占第2和第3列
+			   Text chartSubtitle = new Text("会议时间：1978.11.3");
+			   grid.add(chartSubtitle, 1, 1+t, 2, 1);
 
-		   // 将chartTitle节点放在第1行,第3列
-		   Text chartTitle = new Text("Current Year");
-		   chartTitle.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-		   grid.add(chartTitle, 2, 0);
+			   // 将House图标放在第1列，占第1和第2行
+			  /* ImageView imageHouse = new ImageView(
+			     new Image(LayoutSample.class.getResourceAsStream("graphics/house.png")));
+			   grid.add(imageHouse, 0, 0, 1, 2);*/
 
-		   // 将chartSubtitle节点放在第2行,占第2和第3列
-		   Text chartSubtitle = new Text("Goods and Services");
-		   grid.add(chartSubtitle, 1, 1, 2, 1);
+			   // 将左边的标签goodsPercent放在第3行，第1列，靠下对齐
+			   Text goodsPercent = new Text("会议主要内容::改革开放");
+			   GridPane.setValignment(goodsPercent, VPos.BOTTOM);
+			   grid.add(goodsPercent, 0, 2+t);
 
-		   // 将House图标放在第1列，占第1和第2行
-		  /* ImageView imageHouse = new ImageView(
-		     new Image(LayoutSample.class.getResourceAsStream("graphics/house.png")));
-		   grid.add(imageHouse, 0, 0, 1, 2);*/
+			   // 将饼图放在第3行，占第2和第3列
+			   /*ImageView imageChart = new ImageView(
+			     new Image(LayoutSample.class.getResourceAsStream("graphics/piechart.png")));
+			   grid.add(imageChart, 1, 2, 2, 1);*/
 
-		   // 将左边的标签goodsPercent放在第3行，第1列，靠下对齐
-		   Text goodsPercent = new Text("Goods\n80%");
-		   GridPane.setValignment(goodsPercent, VPos.BOTTOM);
-		   grid.add(goodsPercent, 0, 2);
-
-		   // 将饼图放在第3行，占第2和第3列
-		   /*ImageView imageChart = new ImageView(
-		     new Image(LayoutSample.class.getResourceAsStream("graphics/piechart.png")));
-		   grid.add(imageChart, 1, 2, 2, 1);*/
-
-		   // 将右边的标签servicesPercent放在第3行，第4列，靠上对齐
-		   Text servicesPercent = new Text("Services\n20%");
-		   GridPane.setValignment(servicesPercent, VPos.TOP);
-		   grid.add(servicesPercent, 3, 2);
+			   // 将右边的标签servicesPercent放在第3行，第4列，靠上对齐
+			   Text servicesPercent = new Text("参与人数：99");
+			   GridPane.setValignment(servicesPercent, VPos.TOP);
+			   grid.add(servicesPercent, 3, 2+t);
+			   
+			   /*Text div = new Text("---------------------------------------------------------------------");
+			   GridPane.setValignment(div, VPos.TOP);
+			   grid.add(div, 3, 2+t);*/
+		   }
+		   
+		   
 
 		   return grid;
 		}
