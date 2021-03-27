@@ -18,13 +18,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-/**
- * @ClassName serDemo
- * @Description TODO
- * @Author Charley Chen
- * @DATE 2021/3/27 15:15
- * @Version 1.0
- **/
 public class Secretary extends Application {
     private final TableView<Person> table = new TableView<>();
 
@@ -52,15 +45,8 @@ public class Secretary extends Application {
                     new Person("Emma", "Jones", "emma.jones@example.com"),
                     new Person("Michael", "Brown", "michael.brown@example.com"),
                     new Person("Jacob", "Smith", "jacob.smith@example.com"),
-                    new Person("Isabella", "Johnson", "isabella.johnson@example.com"),
-                    new Person("Ethan", "Williams", "ethan.williams@example.com"),
-                    new Person("Emma", "Jones", "emma.jones@example.com"),
-                    new Person("Michael", "Brown", "michael.brown@example.com"),
-                    new Person("Jacob", "Smith", "jacob.smith@example.com"),
-                    new Person("Isabella", "Johnson", "isabella.johnson@example.com"),
-                    new Person("Ethan", "Williams", "ethan.williams@example.com"),
-                    new Person("Emma", "Jones", "emma.jones@example.com"),
-                    new Person("Michael", "Brown", "michael.brown@example.com")
+                    new Person("Isabella", "Johnson", "isabella.johnson@example.com")
+
             );
 
 
@@ -69,8 +55,8 @@ public class Secretary extends Application {
         String fenluntanName="";
         Scene scene = new Scene(new Group());
         stage.setTitle("秘书，用户列表");
-        stage.setWidth(450);
-        stage.setHeight(500);
+        stage.setWidth(600);
+        stage.setHeight(600);
 
         final Label label = new Label("分论坛"+fenluntanName+"参会者信息");
         label.setFont(new Font("Arial", 20));
@@ -104,7 +90,8 @@ public class Secretary extends Application {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Hello World!");  // wait to be overrided 点一下会跳出新增消息的窗口
+                SecretaryAddMessage open  = new SecretaryAddMessage();
+                open.start(new Stage());
             }
         });
         final VBox vbox = new VBox();
