@@ -4,11 +4,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.concurrent.Callable;
-import java.util.concurrent.FutureTask;
 import java.util.function.Supplier;
 
 import fzu.zrf.mtsys.client.conf.Configuration;
-import javafx.concurrent.Task;
 
 public abstract class Connect2Server<Out, In> implements Callable<In>, Supplier<Out> {
 
