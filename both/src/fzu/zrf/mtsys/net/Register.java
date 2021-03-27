@@ -3,7 +3,7 @@ package fzu.zrf.mtsys.net;
 import java.io.Serializable;
 import java.util.Arrays;
 
-public class Register implements Serializable{
+public class Register implements Serializable {
     /**
      * 
      */
@@ -25,7 +25,9 @@ public class Register implements Serializable{
         return "Register [id=" + id + ", nickname=" + nickname + ", password=" + password + ", subforms="
                 + Arrays.toString(subforms) + "]";
     }
-    
-    
-    
+
+    public enum Result {
+        DONE, ID_WRONG, NICKNAME_WRONG, PSW_WRONG, FORMS_WRONG, OTHER_WRONG;
+    }
+
 }

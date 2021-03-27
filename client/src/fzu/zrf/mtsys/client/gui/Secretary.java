@@ -1,5 +1,7 @@
 package fzu.zrf.mtsys.client.gui;
 
+import fzu.zrf.mtsys.client.conf.Configuration;
+import fzu.zrf.mtsys.net.Login.Result;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -21,83 +23,56 @@ import javafx.stage.Stage;
 public class Secretary extends Application {
     private final TableView<Person> table = new TableView<>();
 
+    private final Result result;
+
+    public Secretary(Result result) {
+        this.result = result;
+    }
+
     // 数据源
-    private final ObservableList<Person> data =
-            FXCollections.observableArrayList(
-                    new Person("Jacob", "Smith", "jacob.smith@example.com"),
-                    new Person("Isabella", "Johnson", "isabella.johnson@example.com"),
-                    new Person("Ethan", "Williams", "ethan.williams@example.com"),
-                    new Person("Emma", "Jones", "emma.jones@example.com"),
-                    new Person("Michael", "Brown", "michael.brown@example.com"),
-                    new Person("Jacob", "Smith", "jacob.smith@example.com"),
-                    new Person("Isabella", "Johnson", "isabella.johnson@example.com"),
-                    new Person("Ethan", "Williams", "ethan.williams@example.com"),
-                    new Person("Emma", "Jones", "emma.jones@example.com"),
-                    new Person("Michael", "Brown", "michael.brown@example.com"),
-                    new Person("Jacob", "Smith", "jacob.smith@example.com"),
-                    new Person("Isabella", "Johnson", "isabella.johnson@example.com"),
-                    new Person("Ethan", "Williams", "ethan.williams@example.com"),
-                    new Person("Emma", "Jones", "emma.jones@example.com"),
-                    new Person("Michael", "Brown", "michael.brown@example.com"),
-                    new Person("Jacob", "Smith", "jacob.smith@example.com"),
-                    new Person("Isabella", "Johnson", "isabella.johnson@example.com"),
-                    new Person("Ethan", "Williams", "ethan.williams@example.com"),
-                    new Person("Emma", "Jones", "emma.jones@example.com"),
-                    new Person("Michael", "Brown", "michael.brown@example.com"),
-                    new Person("Jacob", "Smith", "jacob.smith@example.com"),
-                    new Person("Isabella", "Johnson", "isabella.johnson@example.com")
+    private final ObservableList<Person> data = FXCollections.observableArrayList(new Person("Smith", "sub_meeting1"),
+            new Person("Johnson", "sub_meeting2")
 
-            );
-
+    );
 
     @Override
     public void start(Stage stage) {
-        String fenluntanName="";
         Scene scene = new Scene(new Group());
-        stage.setTitle("秘书，用户列表");
+        stage.setTitle("scretary.hint");
         stage.setWidth(600);
         stage.setHeight(600);
 
-        final Label label = new Label("分论坛"+fenluntanName+"参会者信息");
+        final Label label = new Label("participants.hint");
         label.setFont(new Font("Arial", 20));
 
         table.setEditable(true);
 
-        // 每个Table的列
-        TableColumn firstNameCol = new TableColumn("First Name");
-        // 设置宽度
-        firstNameCol.setMinWidth(100);
-        // 设置分箱的类下面的属性名
-        firstNameCol.setCellValueFactory(
-                new PropertyValueFactory<>("firstName"));
+        TableColumn idCol = new TableColumn("message_id.hint");
+        idCol.setMinWidth(100);
+        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-        TableColumn lastNameCol = new TableColumn("Last Name");
-        lastNameCol.setMinWidth(100);
-        lastNameCol.setCellValueFactory(
-                new PropertyValueFactory<>("lastName"));
-
-        TableColumn emailCol = new TableColumn("Email");
-        emailCol.setMinWidth(200);
-        emailCol.setCellValueFactory(
-                new PropertyValueFactory<>("email"));
+        TableColumn meetingCol = new TableColumn("sub_meeting.hint");
+        meetingCol.setMinWidth(200);
+        meetingCol.setCellValueFactory(new PropertyValueFactory<>("sub_meeting"));
 
         // 设置数据源
         table.setItems(data);
         // 一次添加列进TableView
-        table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
+        table.getColumns().addAll(idCol, meetingCol);
+        table.setPrefSize(300, 500);
         Button btn = new Button();
-        btn.setText("添加消息");
+        btn.setText("sendMessage.hint");
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                SecretaryAddMessage open  = new SecretaryAddMessage();
+                SecretaryAddMessage open = new SecretaryAddMessage();
                 open.start(new Stage());
             }
         });
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
-        vbox.getChildren().addAll(label, table,btn);
+        vbox.getChildren().addAll(label, table, btn);
 
         ((Group) scene.getRoot()).getChildren().addAll(vbox);
 
@@ -107,39 +82,36 @@ public class Secretary extends Application {
 
     public static class Person {
 
-        private final SimpleStringProperty firstName;
-        private final SimpleStringProperty lastName;
-        private final SimpleStringProperty email;
+        private final SimpleStringProperty id;
+        private final SimpleStringProperty sub_meeting;
 
-        private Person(String fName, String lName, String email) {
-            this.firstName = new SimpleStringProperty(fName);
-            this.lastName = new SimpleStringProperty(lName);
-            this.email = new SimpleStringProperty(email);
+        private Person(String id, String sub_meeting) {
+            this.id = new SimpleStringProperty(id);
+            this.sub_meeting = new SimpleStringProperty(sub_meeting);
         }
 
-        public String getFirstName() {
-            return firstName.get();
+        public String getId() {
+            return id.get();
         }
 
-        public void setFirstName(String fName) {
-            firstName.set(fName);
+        public SimpleStringProperty idProperty() {
+            return id;
         }
 
-        public String getLastName() {
-            return lastName.get();
+        public void setId(String id) {
+            this.id.set(id);
         }
 
-        public void setLastName(String fName) {
-            lastName.set(fName);
+        public String getSub_meeting() {
+            return sub_meeting.get();
         }
 
-        public String getEmail() {
-            return email.get();
+        public SimpleStringProperty sub_meetingProperty() {
+            return sub_meeting;
         }
 
-        public void setEmail(String fName) {
-            email.set(fName);
+        public void setSub_meeting(String sub_meeting) {
+            this.sub_meeting.set(sub_meeting);
         }
     }
 }
-
