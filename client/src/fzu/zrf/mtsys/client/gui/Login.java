@@ -4,14 +4,18 @@ import java.util.concurrent.FutureTask;
 
 import fzu.zrf.mtsys.client.conf.Configuration;
 import fzu.zrf.mtsys.client.conn.Connect2Server;
+import fzu.zrf.mtsys.net.Login.Result;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -70,7 +74,24 @@ public class Login extends Application {
                     });
             task.run();
             try {
-                System.out.println(task.get());
+                Result ret = task.get();
+                switch(ret.type) {
+                case ILLEAGLE_STATE:
+                    break;
+                case SUCCESS_CHAIRMAN:
+                    break;
+                case SUCCESS_MEMBER:
+                    break;
+                case SUCCESS_PRESIDENT:
+                    break;
+                case SUCCESS_SECRETARY:
+                    break;
+                case WRONG_ARGS:
+                    Alert err = new Alert(AlertType.ERROR,Configuration.BUNDLE.getString("login.wrong.args.hint") , ButtonType.OK);
+                    err.showAndWait();
+                    break;
+                }
+                
             } catch (Exception e1) {
                 throw new RuntimeException(e1);
             }
