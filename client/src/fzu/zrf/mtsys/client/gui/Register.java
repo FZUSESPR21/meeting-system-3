@@ -2,7 +2,9 @@ package fzu.zrf.mtsys.client.gui;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.TreeSet;
 import java.util.concurrent.FutureTask;
+import java.util.stream.IntStream;
 
 import fzu.zrf.mtsys.client.conf.Configuration;
 import fzu.zrf.mtsys.client.conn.Connect2Server;
@@ -12,13 +14,13 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -98,14 +100,56 @@ public class Register extends Application {
 
         Button register = new Button(Configuration.BUNDLE.getString("register.register.hint"));
         register.setOnAction(a -> {
-            if (!account.getText().trim().equals(confirm.getText().trim())) {
+            if (account.getText().trim().isEmpty() || nickname.getText().trim().isEmpty()) {
+                Alert err = new Alert(AlertType.ERROR, Configuration.BUNDLE.getString("register.name.empty.hint"),
+                        ButtonType.OK);
+                err.showAndWait();
+                return;
+            }
+            if (!password.getText().trim().equals(confirm.getText().trim())) {
                 Alert err = new Alert(AlertType.ERROR, Configuration.BUNDLE.getString("register.psw.err.hint"),
                         ButtonType.OK);
                 err.showAndWait();
                 return;
             }
-            System.out.println(new fzu.zrf.mtsys.net.Register(account.getText().trim(), nickname.getText().trim(),
-                    password.getText().trim(), null, false));
+            if (password.getText().trim().isEmpty()) {
+                Alert err = new Alert(AlertType.ERROR, Configuration.BUNDLE.getString("register.psw.empty.hint"),
+                        ButtonType.OK);
+                err.showAndWait();
+                return;
+            }
+            TreeSet<Integer> ids = new TreeSet<>();
+            for(Entry<Integer, CheckBox> e : cbs.entrySet()) {
+                if(e.getValue().isSelected()) {
+                    ids.add(e.getKey());
+                }
+            }
+            if(ids.isEmpty()) {
+                Alert err = new Alert(AlertType.ERROR, Configuration.BUNDLE.getString("register.form.not.select.hint"),
+                        ButtonType.OK);
+                err.showAndWait();
+                return;
+            }
+            
+            FutureTask<fzu.zrf.mtsys.net.Register.Result> task2 = new FutureTask<>(new Connect2Server<fzu.zrf.mtsys.net.Register, fzu.zrf.mtsys.net.Register.Result>() {
+
+                @Override
+                public fzu.zrf.mtsys.net.Register get() {
+                    return new fzu.zrf.mtsys.net.Register(account.getText().trim(), nickname.getText().trim(),
+                            password.getText().trim(), ids.stream().mapToInt(Integer::intValue).toArray(), false);
+                }
+
+            });
+            task2.run();
+            
+
+            try {
+                fzu.zrf.mtsys.net.Register.Result r = task2.get();
+                System.out.println(r);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            
         });
         buttonBox.getChildren().add(register);
 
