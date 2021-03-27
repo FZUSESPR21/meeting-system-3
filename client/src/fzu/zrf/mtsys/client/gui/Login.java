@@ -75,26 +75,29 @@ public class Login extends Application {
             task.run();
             try {
                 Result ret = task.get();
-                switch(ret.type) {
+                switch (ret.type) {
                 case ILLEAGLE_STATE:
                     break;
                 case SUCCESS_CHAIRMAN:
                     Chairman c = new Chairman(ret);
                     c.start(new Stage());
-                    stage.close();
                     break;
                 case SUCCESS_MEMBER:
                     break;
                 case SUCCESS_PRESIDENT:
                     break;
                 case SUCCESS_SECRETARY:
+                    Secretary s = new Secretary(ret);
+                    s.start(new Stage());
                     break;
                 case WRONG_ARGS:
-                    Alert err = new Alert(AlertType.ERROR,Configuration.BUNDLE.getString("login.wrong.args.hint") , ButtonType.OK);
+                    Alert err = new Alert(AlertType.ERROR, Configuration.BUNDLE.getString("login.wrong.args.hint"),
+                            ButtonType.OK);
                     err.showAndWait();
                     break;
                 }
-                
+
+                stage.close();
             } catch (Exception e1) {
                 throw new RuntimeException(e1);
             }
