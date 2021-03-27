@@ -1,11 +1,11 @@
 package fzu.zrf.mtsys.client.gui;
 
-import java.util.List;
+
+import fzu.zrf.mtsys.client.conf.Configuration;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,7 +13,6 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -34,10 +33,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
  
- 
-
- 
- 
 public class Chairman extends Application {
     
  
@@ -50,24 +45,19 @@ public class Chairman extends Application {
     
     @Override
     public void start(Stage stage) {
- 
- 
+    	
+    	
         BorderPane border = new BorderPane();
         
         HBox hbox = addHBox();
         border.setTop(hbox);
         border.setLeft(addVBox());
-
-        addStackPane(hbox);  
         
-    
-        //border.setRight(addFlowPane());
-     
-       // border.setCenter(addAnchorPane(addGridPane()));
- 
+        addStackPane(hbox);  
+           
         Scene scene = new Scene(border);
         stage.setScene(scene);
-        stage.setTitle("ChairmanClient");
+        stage.setTitle(Configuration.BUNDLE.getString("Chairman.ChairmanClient.hint"));
         stage.show();
     }
  
@@ -79,10 +69,10 @@ public class Chairman extends Application {
         hbox.setSpacing(10);   
         hbox.setStyle("-fx-background-color: #336699;");
  
-        Button buttonMessage = new Button("会议议程&分论坛信息");
+        Button buttonMessage = new Button(Configuration.BUNDLE.getString("Chairman.buttonMessage.hint"));
         buttonMessage.setPrefSize(170, 20);
  
-        Button buttonAttendance = new Button("实时参会人数");
+        Button buttonAttendance = new Button(Configuration.BUNDLE.getString("Chairman.buttonAttendance.hint"));
         buttonAttendance.setPrefSize(120, 20);
         
         hbox.getChildren().addAll(buttonMessage, buttonAttendance);
@@ -92,68 +82,54 @@ public class Chairman extends Application {
     
 
     private VBox addVBox() {
-        
         VBox vbox = new VBox();
         vbox.setPadding(new Insets(10)); 
         vbox.setSpacing(8);            
  
-        Text title = new Text("会议议程&分论坛信息");
+        Text title = new Text(Configuration.BUNDLE.getString("Chairman.buttonAttendance.hint"));
         title.setFont(Font.font("Arial", FontWeight.BOLD, 24));
         vbox.getChildren().add(title);
         
         
         
         TextField topic = new TextField();
-        vbox.getChildren().add(new Label("分论坛议题: "));
+        vbox.getChildren().add(new Label(Configuration.BUNDLE.getString("Chairman.topic.hint")));
         vbox.getChildren().add(topic);
-        topic.setText("2021第99届数字峰会");
+        topic.setText("数字峰会");
         topic.setEditable(false);
         
         TextField chairman = new TextField();
-        vbox.getChildren().add(new Label("主席: "));
+        vbox.getChildren().add(new Label(Configuration.BUNDLE.getString("Chairman.chairman.hint")));
         vbox.getChildren().add(chairman);
         chairman.setText("小明");
         chairman.setEditable(false);
         
         TextField time = new TextField();
-        vbox.getChildren().add(new Label("召开时间: "));
+        vbox.getChildren().add(new Label(Configuration.BUNDLE.getString("Chairman.time.hint")));
         vbox.getChildren().add(time);
         time.setText("2021.3.27");
         time.setEditable(false);
         
 		
-		Text title1 = new Text("实时参会人数"); title1.setFont(Font.font("Arial",
+		Text title1 = new Text(Configuration.BUNDLE.getString("Chairman.buttonAttendance.hint")); title1.setFont(Font.font("Arial",
 		FontWeight.BOLD, 24)); vbox.getChildren().add(title1);
 		  
 		
         
         TextField meeting = new TextField();
-        vbox.getChildren().add(new Label("会议参会人数: "));
+        vbox.getChildren().add(new Label(Configuration.BUNDLE.getString("Chairman.meeting.hint")));
         vbox.getChildren().add(meeting);
         meeting.setEditable(false);
         
         TextField bbs = new TextField();
-        vbox.getChildren().add(new Label("分论坛参会人数: "));
+        vbox.getChildren().add(new Label(Configuration.BUNDLE.getString("Chairman.bbs.hint")));
         vbox.getChildren().add(bbs);
         bbs.setEditable(false);
         
         return vbox;
     }
     
-	/*
-	 * private GridPane addGridPane() {
-	 * 
-	 * TextField notification = new TextField (); notification.setText("Label");
-	 * 
-	 * notification.clear();
-	 * 
-	 * GridPane grid = new GridPane(); grid.setVgap(4); grid.setHgap(10);
-	 * grid.setPadding(new Insets(5, 5, 5, 5)); grid.add(new Label("To: "), 0, 0);
-	 * grid.add(notification, 1, 0);
-	 * 
-	 * Group root = (Group) scene.getRoot(); root.getChildren().add(grid); return
-	 * grid; }
-	 */
+	
    
 
     private void addStackPane(HBox hb) {
@@ -183,32 +159,6 @@ public class Chairman extends Application {
         HBox.setHgrow(stack, Priority.ALWAYS);
                 
     }
- 
 
- 
-
-    
-
- 
-
-    private AnchorPane addAnchorPane(GridPane grid) {
- 
-        AnchorPane anchorpane = new AnchorPane();
-        
-        Button buttonSave = new Button("Save");
-        Button buttonCancel = new Button("Cancel");
- 
-        HBox hb = new HBox();
-        hb.setPadding(new Insets(0, 10, 10, 10));
-        hb.setSpacing(10);
-        hb.getChildren().addAll(buttonSave, buttonCancel);
- 
-        anchorpane.getChildren().addAll(grid,hb);
-        // Anchor buttons to bottom right, anchor grid to top
-        AnchorPane.setBottomAnchor(hb, 8.0);
-        AnchorPane.setRightAnchor(hb, 5.0);
-        AnchorPane.setTopAnchor(grid, 10.0);
- 
-        return anchorpane;
-    }
+	
 }
