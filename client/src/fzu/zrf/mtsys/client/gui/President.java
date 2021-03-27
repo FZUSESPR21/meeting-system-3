@@ -1,6 +1,7 @@
 package fzu.zrf.mtsys.client.gui;
 
 import fzu.zrf.mtsys.client.conf.Configuration;
+import fzu.zrf.mtsys.net.Login.Result;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -31,6 +32,10 @@ public class President extends Application {
 		launch(President.class, args);
 	}
 
+	private final Result result;
+	public President(Result result) {
+	    this.result = result;
+	}
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub

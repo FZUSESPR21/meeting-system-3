@@ -85,6 +85,8 @@ public class Login extends Application {
                 case SUCCESS_MEMBER:
                     break;
                 case SUCCESS_PRESIDENT:
+                    President p = new President(ret);
+                    p.start(new Stage());
                     break;
                 case SUCCESS_SECRETARY:
                     Secretary s = new Secretary(ret);
