@@ -1,15 +1,24 @@
 package fzu.zrf.mtsys.client.gui;
 
+import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.concurrent.FutureTask;
+
 import fzu.zrf.mtsys.client.conf.Configuration;
+import fzu.zrf.mtsys.client.conn.Connect2Server;
+import fzu.zrf.mtsys.net.FormsInfo;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -58,13 +67,30 @@ public class Register extends Application {
         flow.setVgap(4);
         flow.setHgap(4);
 
-        grid.add(flow, 0, 8 , 2, 1);
-        
-        // 分论坛
-        CheckBox cb1 = new CheckBox("First");
-        CheckBox cb2 = new CheckBox("Second");
-        flow.getChildren().add(cb1);
-        flow.getChildren().add(cb2);
+        grid.add(flow, 0, 8, 2, 1);
+
+        FutureTask<FormsInfo.Result> task = new FutureTask<>(new Connect2Server<FormsInfo, FormsInfo.Result>() {
+
+            @Override
+            public FormsInfo get() {
+                return new FormsInfo();
+            }
+
+        });
+        task.run();
+
+        HashMap<Integer, CheckBox> cbs = new HashMap<>();
+
+        try {
+            FormsInfo.Result r = task.get();
+            for (Entry<Integer, String> e : r.forms.entrySet()) {
+                cbs.put(e.getKey(), new CheckBox(e.getValue()));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        flow.getChildren().addAll(cbs.values());
 
         HBox buttonBox = new HBox(10);
         buttonBox.setAlignment(Pos.BOTTOM_RIGHT);
@@ -72,6 +98,12 @@ public class Register extends Application {
 
         Button register = new Button(Configuration.BUNDLE.getString("register.register.hint"));
         register.setOnAction(a -> {
+            if (!account.getText().trim().equals(confirm.getText().trim())) {
+                Alert err = new Alert(AlertType.ERROR, Configuration.BUNDLE.getString("register.psw.err.hint"),
+                        ButtonType.OK);
+                err.showAndWait();
+                return;
+            }
             System.out.println(new fzu.zrf.mtsys.net.Register(account.getText().trim(), nickname.getText().trim(),
                     password.getText().trim(), null, false));
         });
