@@ -1,6 +1,7 @@
 package fzu.zrf.mtsys.net;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 public class Login implements Serializable {
 
@@ -34,18 +35,18 @@ public class Login implements Serializable {
         }
 
         public final Type type;
-        public final String authKey;
         public final String name;
+        public final int[] forms;
 
-        public Result(Type type, String authKey, String name) {
+        public Result(Type type, String name, int[] forms, boolean cloneArr) {
             this.type = type;
-            this.authKey = authKey;
             this.name = name;
+            this.forms = cloneArr ? forms.clone() : forms;
         }
 
         @Override
         public String toString() {
-            return "Result [type=" + type + ", authKey=" + authKey + ", name=" + name + "]";
+            return "Result [type=" + type + ", name=" + name + ", forms=" + Arrays.toString(forms) + "]";
         }
 
     }

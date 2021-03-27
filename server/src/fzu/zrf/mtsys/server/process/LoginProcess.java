@@ -19,7 +19,7 @@ public class LoginProcess {
             s.setString(2, l.password);
             ResultSet rs = s.executeQuery();
             if(rs.next()) {
-                ret = new Login.Result(null, "123456", rs.getString("nickname"));
+                ret = new Login.Result(null, rs.getString("nickname"), null, false);
             }
             s.close();
             conn.close();
