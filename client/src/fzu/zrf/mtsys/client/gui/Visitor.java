@@ -37,11 +37,7 @@ import javafx.stage.Stage;
 import fzu.zrf.mtsys.client.conf.Configuration;
 
 
-public class Visitor extends Application {
-	public static void main(String[] args) {
-		launch(Visitor.class,args);
-	}
-	
+public class Visitor extends Application {	
 	@Override
 	public void start(Stage stage) {
 		BorderPane border = new BorderPane();
