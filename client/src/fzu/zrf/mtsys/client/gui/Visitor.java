@@ -44,7 +44,7 @@ public class Visitor extends Application {
 
     private HBox addHBox() { 
         HBox hbox = new HBox();
-        hbox.setPadding(new Insets(15, 12, 15, 12));
+        hbox.setPadding(new Insets(15, 15, 15, 15));
         hbox.setSpacing(10);
         
         Text text = new Text(Configuration.BUNDLE.getString("register.visitor.hint"));
@@ -144,7 +144,7 @@ public class Visitor extends Application {
     private FlowPane addFlowPane() {
  
         FlowPane flow = new FlowPane();
-        flow.setPadding(new Insets(5, 0, 5, 0));
+        flow.setPadding(new Insets(8, 0, 8, 0));
         flow.setVgap(4);
         flow.setHgap(4);
         flow.setPrefWrapLength(170); // preferred width allows for two columns
