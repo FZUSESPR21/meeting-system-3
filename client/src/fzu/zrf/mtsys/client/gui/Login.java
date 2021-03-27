@@ -79,6 +79,9 @@ public class Login extends Application {
                 case ILLEAGLE_STATE:
                     break;
                 case SUCCESS_CHAIRMAN:
+                    Chairman c = new Chairman(ret);
+                    c.start(new Stage());
+                    stage.close();
                     break;
                 case SUCCESS_MEMBER:
                     break;

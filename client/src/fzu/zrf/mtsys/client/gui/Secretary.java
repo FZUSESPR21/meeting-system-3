@@ -1,6 +1,6 @@
 package fzu.zrf.mtsys.client.gui;
 
-import fzu.zrf.mtsys.client.gui.SecretaryAddMessage;
+import fzu.zrf.mtsys.client.conf.Configuration;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
