@@ -114,7 +114,7 @@ public class Chairman extends Application {
         vbox.getChildren().add(new Label(Configuration.BUNDLE.getString("Chairman.meeting.hint")));
         vbox.getChildren().add(meeting);
         meeting.setEditable(false);
-        
+
         FutureTask<GetMemberCount.Result> task = new FutureTask<>(
                 new Connect2Server<GetMemberCount, GetMemberCount.Result>() {
 
@@ -125,12 +125,11 @@ public class Chairman extends Application {
 
                 });
         task.run();
-        
+
         try {
-            System.out.println(task.get());
+            meeting.setText(task.get().num + "");
         } catch (InterruptedException | ExecutionException e) {
-            // TODO 自动生成的 catch 块
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
 //        TextField bbs = new TextField();
