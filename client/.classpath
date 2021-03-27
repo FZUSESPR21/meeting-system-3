@@ -9,5 +9,6 @@
 			<accessrule kind="accessible" pattern="javafx/**"/>
 		</accessrules>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/both"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
