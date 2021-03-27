@@ -74,7 +74,7 @@ public class Visitor extends Application {
          
         for (int i=0; i<options.length; i++) {
             // Add offset to left side to indent from title
-            VBox.setMargin(options[i], new Insets(0, 0, 0, 10));
+            VBox.setMargin(options[i], new Insets(0, 0, 0, 8));
             vbox.getChildren().add(options[i]);
         }
         
@@ -99,7 +99,7 @@ public class Visitor extends Application {
          
         for (int i=0; i<options.length; i++) {
             // Add offset to left side to indent from title
-            VBox.setMargin(options[i], new Insets(0, 0, 0, 15));
+            VBox.setMargin(options[i], new Insets(0, 0, 0, 18));
             vbox.getChildren().add(options[i]);
         }
         
