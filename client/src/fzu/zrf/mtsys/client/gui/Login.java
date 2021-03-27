@@ -1,6 +1,9 @@
 package fzu.zrf.mtsys.client.gui;
 
+import java.util.concurrent.FutureTask;
+
 import fzu.zrf.mtsys.client.conf.Configuration;
+import fzu.zrf.mtsys.client.conn.Connect2Server;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,7 +14,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Login extends Application {
@@ -57,6 +59,21 @@ public class Login extends Application {
 
         Button login = new Button(Configuration.BUNDLE.getString("login.login.hint"));
         login.setOnAction(e -> {
+            FutureTask<fzu.zrf.mtsys.net.Login.Result> task = new FutureTask<>(
+                    new Connect2Server<fzu.zrf.mtsys.net.Login, fzu.zrf.mtsys.net.Login.Result>() {
+
+                        @Override
+                        public fzu.zrf.mtsys.net.Login get() {
+                            return new fzu.zrf.mtsys.net.Login(account.getText().trim(), password.getText().trim());
+                        }
+
+                    });
+            task.run();
+            try {
+                System.out.println(task.get());
+            } catch (Exception e1) {
+                throw new RuntimeException(e1);
+            }
         });
         buttonBox.getChildren().add(login);
 

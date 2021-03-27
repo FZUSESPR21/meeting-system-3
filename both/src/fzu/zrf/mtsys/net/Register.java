@@ -1,8 +1,13 @@
 package fzu.zrf.mtsys.net;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Register {
+public class Register implements Serializable{
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 2068958008398007093L;
     public final String id;
     public final String nickname;
     public final String password;
