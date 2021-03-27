@@ -1,29 +1,16 @@
 package fzu.zrf.mtsys.client.gui;
 
 import fzu.zrf.mtsys.client.conf.Configuration;
-
-import java.sql.BatchUpdateException;
-
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import com.sun.javafx.sg.prism.web.NGWebView;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -34,7 +21,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import fzu.zrf.mtsys.client.conf.Configuration;
 
 
 public class Visitor extends Application {	
@@ -58,7 +44,7 @@ public class Visitor extends Application {
 
     private HBox addHBox() { 
         HBox hbox = new HBox();
-        hbox.setPadding(new Insets(15, 12, 15, 12));
+        hbox.setPadding(new Insets(15, 15, 15, 15));
         hbox.setSpacing(10);
         
         Text text = new Text(Configuration.BUNDLE.getString("register.visitor.hint"));
@@ -158,7 +144,7 @@ public class Visitor extends Application {
     private FlowPane addFlowPane() {
  
         FlowPane flow = new FlowPane();
-        flow.setPadding(new Insets(5, 0, 5, 0));
+        flow.setPadding(new Insets(8, 0, 8, 0));
         flow.setVgap(4);
         flow.setHgap(4);
         flow.setPrefWrapLength(170); // preferred width allows for two columns
